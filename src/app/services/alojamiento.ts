@@ -4,7 +4,8 @@ import { Observable, map } from 'rxjs';
 import {MarketplaceData} from "../models/marketplace-data";
 import {Resena} from "../models/resena";
 import {Alojamiento} from "../models/alojamiento";
-import {Filtros} from './filtros';
+import {Filtros} from '../models/filtros';
+
 
 @Injectable({providedIn: 'root'})
 export class AlojamientoService {
