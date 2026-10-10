@@ -1,42 +1,38 @@
-<div class = "card shadow-sm border-0 rounded-3 max-w-md mx-auto">
-  <div class = "card-header bg-primary text-white py-3">
-    <h4 class = "card title mb-0 h5 fw-bold">Reserva tu estancia</h4>
+<div class="card shadow-sm border-0 rounded-3">
+  <div class="card-header bg-primary text-white py-3">
+    <h4 class="card-title mb-0 h5 fw-bold">Reserva tu estancia</h4>
   </div>
 
-  <div class = "card-body p-4">
-    <div class = "alert alert-light border d-flex justify-content-between align-items-center mb-4">
-      <span class = "text-muted fw-semibold">Total a pagar:</span>
-      <strong class = "h4 mb-0 text-primary fw-bold">$875.000</strong>
+  <div class="card-body p-4">
+    <div class="alert alert-light border d-flex justify-content-between align-items-center mb-4">
+      <span class="text-muted fw-semibold">Total a pagar:</span>
+      <strong class="h4 mb-0 text-primary fw-bold">
+        {{ cotizacion.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}
+      </strong>
     </div>
 
-    <form novalidate>
+    <form [formGroup]="form" (ngSubmit)="confirmarReserva()" novalidate>
 
-      <div class = "mb-3">
-        <label for = "nombre" class = "form-label fw-semibold">Nombre Completo</label>
-        <input
-          id = "nombre"
-          type = "text"
-          class = "form-control"
-          placeholder = "Ej. Samuel Parada"/>
-        <div class = "invalid-feedback d-block">
-          Ingresa tu nombre (minimo 3 caracteres).
-        </div>
+      <div class="mb-3">
+        <label for="nombre" class="form-label fw-semibold">Nombre completo</label>
+        <input id="nombre" type="text" class="form-control"
+               formControlName="nombre"
+               placeholder="Ej. Samuel Parada"
+               [class.is-invalid]="campoInvalido('nombre')" />
+        <div class="invalid-feedback">{{ mensajeError('nombre') }}</div>
       </div>
 
-      <div class = "mb-4">
-        <label for = "correo" class = "form-label fw-semibold">Correo electronico</label>
-        <input
-          id = "correo"
-          type = "email"
-          class = "form-control"
-          placeholder = "ejemplo@gmail.com"/>
-        <div class = "invalid-feedback d-block">
-          Ingresa tu correo electronico valido.
-        </div>
+      <div class="mb-4">
+        <label for="correo" class="form-label fw-semibold">Correo electrónico</label>
+        <input id="correo" type="email" class="form-control"
+               formControlName="correo"
+               placeholder="ejemplo@gmail.com"
+               [class.is-invalid]="campoInvalido('correo')" />
+        <div class="invalid-feedback">{{ mensajeError('correo') }}</div>
       </div>
 
-      <button type = "submit" class = "btn btn-primary w-100 fw-bold py-2">
-        Confirmar reserva.
+      <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+        Confirmar reserva
       </button>
     </form>
   </div>
