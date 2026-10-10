@@ -1,5 +1,6 @@
 export interface Alojamiento {
   id: number;
+  activo: boolean;
   nombre: string;
   descripcion: string;
   ciudad: string;

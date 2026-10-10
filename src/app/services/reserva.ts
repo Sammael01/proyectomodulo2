@@ -1,3 +1,6 @@
+import { Injectable } from '@angular/core';
+import {Reserva} from "../models/reserva";
+
 @Injectable({providedIn: 'root'})
 export class ReservaService {
     private clave = 'reservas';
