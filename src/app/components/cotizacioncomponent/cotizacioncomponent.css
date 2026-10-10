@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.max-w-md {
+  max-width: 480px;
+}
+
+.tracking-wide {
+  letter-spacing: 0.05em;
+}

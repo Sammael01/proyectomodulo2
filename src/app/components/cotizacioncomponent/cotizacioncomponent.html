@@ -1,0 +1,99 @@
+<div class="card shadow-sm border-0 rounded-3">
+  <div class="card-header bg-primary text-white py-3">
+    <h4 class="card-title mb-0 h5 fw-bold">Cotiza tu estancia</h4>
+  </div>
+
+  <div class="card-body p-4">
+
+    <form [formGroup]="form" (ngSubmit)="cotizar()" novalidate>
+
+      <div class="mb-3">
+        <label for="llegada" class="form-label fw-semibold">Fecha de llegada</label>
+        <input id="llegada" type="date" class="form-control"
+               formControlName="llegada"
+               [min]="hoy"
+               [class.is-invalid]="campoInvalido('llegada')" />
+        <div class="invalid-feedback">{{ mensajeError('llegada') }}</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="salida" class="form-label fw-semibold">Fecha de salida</label>
+        <input id="salida" type="date" class="form-control"
+               formControlName="salida"
+               [min]="fechaMinimaSalida"
+               [class.is-invalid]="campoInvalido('salida')" />
+        <div class="invalid-feedback">{{ mensajeError('salida') }}</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="huespedes" class="form-label fw-semibold">
+          Huéspedes <span class="text-muted fw-normal">(máx. {{ maximoHuespedes }})</span>
+        </label>
+        <input id="huespedes" type="number" class="form-control"
+               formControlName="huespedes"
+               min="1" [max]="maximoHuespedes"
+               [class.is-invalid]="campoInvalido('huespedes')" />
+        <div class="invalid-feedback">{{ mensajeError('huespedes') }}</div>
+      </div>
+
+      @if (hayErrores) {
+        <div class="alert alert-danger py-2 px-3 mb-3" role="alert">
+          <ul class="mb-0 ps-3 small">
+            @for (error of errores; track error) {
+              <li>{{ error }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <button type="submit" class="btn btn-primary w-100 fw-bold py-2">
+        Calcular cotización
+      </button>
+
+    </form>
+
+    @if (cotizacion) {
+      <hr class="my-4" />
+
+      <div class="resumen-cotizacion">
+        <h5 class="h6 fw-bold mb-3 text-secondary">Resumen de la cotización</h5>
+
+        <ul class="list-group list-group-flush small">
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+            <span class="text-muted">Estancia</span>
+            <span class="fw-medium">
+              {{ cotizacion.fechaLlegada | date: 'dd/MM/yyyy' }} - {{ cotizacion.fechaSalida | date: 'dd/MM/yyyy' }}
+            </span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+            <span class="text-muted">Noches</span>
+            <span class="fw-medium">{{ cotizacion.noches }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+            <span class="text-muted">
+              Subtotal ({{ cotizacion.noches }} × {{ cotizacion.precioNoche | currency: 'COP' : 'symbol-narrow' : '1.0-0' }})
+            </span>
+            <span class="fw-medium">{{ cotizacion.subtotal | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+            <span class="text-muted">Tarifa de limpieza</span>
+            <span class="fw-medium">{{ cotizacion.tarifaLimpieza | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+            <span class="text-muted">Tarifa de servicio (10 %)</span>
+            <span class="fw-medium">{{ cotizacion.tarifaServicio | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-3 mt-2 border-top border-2">
+            <strong class="h6 mb-0 fw-bold">Total</strong>
+            <strong class="h5 mb-0 fw-bold text-primary">{{ cotizacion.total | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+          </li>
+        </ul>
+      </div>
+    }
+  </div>
+</div>
