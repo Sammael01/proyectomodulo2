@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg hv-navbar animate__animated animate__fadeInDown">
+  <div class="container-xxl">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#" (click)="$event.preventDefault()">
+      <span class="hv-logo"></span>
+      <span class="hv-brand">Hotel<span class="text-orange">Vista</span></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#hvNav" aria-controls="hvNav" aria-expanded="false" aria-label="Menú">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="hvNav">
+      <ul class="navbar-nav mx-auto gap-lg-3">
+        @for (link of links; track link) {
+          <li class="nav-item">
+            <a class="nav-link" href="#" [class.active]="active() === link" (click)="$event.preventDefault(); active.set(link)">{{ link }}</a>
+          </li>
+        }
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <div class="dropdown">
+          <button class="hv-nav-select dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <strong>{{ currency() }}</strong>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            @for (item of currencies; track item) {
+              <li><button class="dropdown-item" type="button" (click)="currency.set(item)">{{ item }}</button></li>
+            }
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="hv-nav-select dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-regular fa-flag me-1"></i>{{ language() }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            @for (item of languages; track item) {
+              <li><button class="dropdown-item" type="button" (click)="language.set(item)">{{ item }}</button></li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,51 @@
+<article class="hv-card animate__animated animate__fadeInUp">
+  <div class="hv-card-image" [style.background]="hotel().gradient"></div>
+  <div class="hv-card-body">
+    <div class="d-flex justify-content-between align-items-start gap-2">
+      <h3 class="hv-card-title">{{ hotel().name }}</h3>
+      <div class="hv-stars text-nowrap">
+        @for (slot of starSlots; track slot) {
+          <i class="fa-star" [class.fa-solid]="slot <= hotel().stars" [class.fa-regular]="slot > hotel().stars" [class.off]="slot > hotel().stars"></i>
+        }
+      </div>
+    </div>
+    <p class="hv-card-location">
+      <i class="fa-solid fa-location-dot me-1"></i>{{ hotel().zone }} — {{ hotel().distance }} km del centro
+      @if (hotel().note) {
+        <span>({{ hotel().note }})</span>
+      }
+    </p>
+    <span class="hv-badge" [class.urgent]="hotel().urgent">{{ hotel().badge }}</span>
+    <div class="d-flex justify-content-between align-items-end gap-2 mt-auto pt-3">
+      <div class="d-flex flex-wrap gap-2">
+        @for (amenity of hotel().amenities; track amenity) {
+          <span class="hv-chip">{{ amenity }}</span>
+        }
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <div class="text-end">
+          <div class="hv-rating-label">{{ hotel().ratingLabel }}</div>
+          <div class="hv-reviews">{{ hotel().reviews.toLocaleString('es-ES') }} opiniones</div>
+        </div>
+        <span class="hv-score">{{ hotel().rating.toFixed(1) }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="hv-card-prices">
+    <ul class="list-unstyled mb-0">
+      @for (offer of offers(); track offer.site; let first = $first) {
+        <li class="hv-offer">
+          <span>{{ offer.site }} @if (first) {<span class="hv-offer-tag">Oferta</span>}</span>
+          <strong [class.text-pink]="first">€{{ offer.price }}</strong>
+        </li>
+      }
+    </ul>
+    <div class="mt-auto pt-3">
+      <div class="d-flex justify-content-between align-items-baseline">
+        <span class="hv-best-label">Mejor precio:</span>
+        <span class="hv-best-price">€{{ best() }}<small>/noche</small></span>
+      </div>
+      <button type="button" class="btn hv-btn w-100 mt-2">Ver oferta</button>
+    </div>
+  </div>
+</article>

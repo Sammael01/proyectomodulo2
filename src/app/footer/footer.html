@@ -1,0 +1,17 @@
+<footer class="hv-footer">
+  <div class="container-xxl">
+    <div class="row align-items-center gy-3">
+      <div class="col-lg-4">
+        <span class="hv-brand">Hotel<span class="text-orange">Vista</span></span>
+      </div>
+      <div class="col-lg-8">
+        <h6 class="hv-footer-title">Integrantes</h6>
+        <ul class="list-unstyled d-flex flex-wrap gap-2 mb-0">
+          @for (member of members; track member) {
+            <li class="hv-member"><i class="fa-solid fa-user me-2"></i>{{ member }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

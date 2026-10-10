@@ -1,0 +1,52 @@
+<section class="hv-search animate__animated animate__fadeIn">
+  <div class="container-xxl">
+    <form class="row g-2" (submit)="$event.preventDefault()">
+      <div class="col-12 col-md-6 col-lg">
+        <label class="hv-field">
+          <i class="fa-solid fa-location-dot text-orange"></i>
+          <span class="hv-field-body">
+            <span class="hv-field-label">Destino</span>
+            <input type="text" [value]="destination()" (input)="destination.set(value($event))">
+          </span>
+        </label>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3 col-lg">
+        <label class="hv-field">
+          <i class="fa-regular fa-calendar"></i>
+          <span class="hv-field-body">
+            <span class="hv-field-label">Entrada</span>
+            <input type="date" [value]="checkIn()" (change)="checkIn.set(value($event))">
+          </span>
+        </label>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3 col-lg">
+        <label class="hv-field">
+          <i class="fa-regular fa-calendar"></i>
+          <span class="hv-field-body">
+            <span class="hv-field-label">Salida</span>
+            <input type="date" [value]="checkOut()" [min]="checkIn()" (change)="checkOut.set(value($event))">
+          </span>
+          @if (nights() > 0) {
+            <span class="hv-nights">{{ nights() }} {{ nights() === 1 ? 'noche' : 'noches' }}</span>
+          }
+        </label>
+      </div>
+      <div class="col-12 col-md-8 col-lg">
+        <label class="hv-field">
+          <i class="fa-regular fa-user"></i>
+          <span class="hv-field-body">
+            <span class="hv-field-label">Huéspedes</span>
+            <select [value]="guests()" (change)="guests.set(value($event))">
+              @for (option of guestOptions; track option) {
+                <option [value]="option" [selected]="option === guests()">{{ option }}</option>
+              }
+            </select>
+          </span>
+        </label>
+      </div>
+      <div class="col-12 col-md-4 col-lg-auto">
+        <button type="submit" class="btn hv-btn hv-btn-search w-100 h-100">Buscar</button>
+      </div>
+    </form>
+  </div>
+</section>

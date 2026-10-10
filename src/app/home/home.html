@@ -1,0 +1,106 @@
+<app-search-bar />
+<section class="container-xxl py-4 py-lg-5">
+  <div class="row g-4">
+    <aside class="col-lg-3 animate__animated animate__fadeInLeft">
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <h2 class="hv-filters-title">Filtros</h2>
+        <button type="button" class="hv-clear" (click)="clear()">Limpiar todo</button>
+      </div>
+
+      <div class="hv-filter">
+        <h3>Precio por noche</h3>
+        <input type="range" class="hv-range" [min]="minPrice" [max]="maxPriceLimit" [value]="maxPrice()" (input)="setPrice($event)" aria-label="Precio máximo por noche">
+        <div class="hv-range-labels">
+          <span>€{{ minPrice }}</span>
+          <strong>€{{ maxPrice() }}</strong>
+        </div>
+      </div>
+
+      <div class="hv-filter">
+        <h3>Valoración</h3>
+        <div class="d-flex gap-2">
+          @for (option of starOptions; track option) {
+            <button type="button" class="hv-star-btn" [class.active]="stars() === option" (click)="setStars(option)">
+              {{ option }}<i class="fa-solid fa-star ms-1"></i>
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="hv-filter">
+        <h3>Tipo de alojamiento</h3>
+        @for (option of typeOptions; track option) {
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [id]="'type-' + option" [checked]="types().includes(option)" (change)="toggleType(option)">
+            <label class="form-check-label" [for]="'type-' + option">{{ option }}</label>
+          </div>
+        }
+      </div>
+
+      <div class="hv-filter">
+        <h3>Servicios</h3>
+        @for (option of serviceOptions; track option.key) {
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [id]="'service-' + option.key" [checked]="services().includes(option.key)" (change)="toggleService(option.key)">
+            <label class="form-check-label" [for]="'service-' + option.key">{{ option.label }}</label>
+          </div>
+        }
+      </div>
+
+      <div class="hv-filter">
+        <h3>Distancia al centro</h3>
+        <input type="range" class="hv-range" min="0.5" [max]="maxDistanceLimit" step="0.5" [value]="maxDistance()" (input)="setDistance($event)" aria-label="Distancia máxima al centro">
+        <div class="hv-range-labels">
+          <span>0 km</span>
+          <strong>{{ maxDistance() }} km</strong>
+        </div>
+      </div>
+    </aside>
+
+    <div class="col-lg-9">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h1 class="hv-results-title">
+          {{ filtered().length }} {{ filtered().length === 1 ? 'hotel encontrado' : 'hoteles encontrados' }} en Barcelona
+          <span class="hv-dot"></span>
+        </h1>
+        <div class="d-flex align-items-center gap-2">
+          <span class="hv-sort-label">Ordenar por:</span>
+          <div class="dropdown">
+            <button class="hv-sort dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ sort() }}</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              @for (option of sortOptions; track option) {
+                <li><button class="dropdown-item" type="button" [class.active]="sort() === option" (click)="setSort(option)">{{ option }}</button></li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column gap-3">
+        @for (hotel of visible(); track hotel.id) {
+          <app-hotel-card [hotel]="hotel" />
+        } @empty {
+          <div class="hv-empty animate__animated animate__fadeIn">
+            <i class="fa-solid fa-magnifying-glass mb-3"></i>
+            <p class="mb-2">No hay alojamientos que coincidan con los filtros seleccionados.</p>
+            <button type="button" class="hv-clear" (click)="clear()">Limpiar todo</button>
+          </div>
+        }
+      </div>
+
+      @if (filtered().length > 0) {
+        <nav class="d-flex justify-content-center gap-2 mt-5" aria-label="Paginación">
+          <button type="button" class="hv-page" [disabled]="currentPage() === 1" (click)="goTo(currentPage() - 1)" aria-label="Anterior">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          @for (item of pages(); track item) {
+            <button type="button" class="hv-page" [class.active]="item === currentPage()" (click)="goTo(item)">{{ item }}</button>
+          }
+          <button type="button" class="hv-page" [disabled]="currentPage() === totalPages()" (click)="goTo(currentPage() + 1)" aria-label="Siguiente">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </nav>
+      }
+    </div>
+  </div>
+</section>
