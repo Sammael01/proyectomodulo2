@@ -1,0 +1,235 @@
+[
+  {
+    "id": 1,
+    "nombre": "Hotel Mediterráneo Palace",
+    "ciudad": "Barcelona",
+    "tipo": "Hotel",
+    "estrellas": 5,
+    "ubicacion": "La Rambla, Barcelona — 0.2 km del centro",
+    "descripcion": "Hotel clásico en plena Rambla con terraza panorámica, spa y habitaciones renovadas. Ideal para escapadas culturales y viajes de negocios.",
+    "capacidad": 4,
+    "habitaciones": 2,
+    "camas": 3,
+    "banos": 2,
+    "precioNoche": 189,
+    "servicios": [
+      "WiFi",
+      "Piscina",
+      "Gimnasio",
+      "Spa",
+      "Desayuno disponible"
+    ],
+    "reglas": [
+      "Check-in desde las 15:00",
+      "Check-out hasta las 12:00",
+      "No se permite fumar",
+      "Mascotas no admitidas"
+    ],
+    "calificacion": 9.2,
+    "totalResenas": 1847,
+    "etiqueta": "Desayuno disponible",
+    "imagenes": [
+      "linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899)",
+      "linear-gradient(135deg,#06b6d4,#3b82f6 60%,#6d28d9)",
+      "linear-gradient(135deg,#f97316,#ec4899 60%,#8b5cf6)",
+      "linear-gradient(90deg,#10b981,#06b6d4,#facc15,#f97316,#ec4899)"
+    ],
+    "ofertas": [
+      {
+        "proveedor": "Booking.com",
+        "precio": 189,
+        "destacada": true
+      },
+      {
+        "proveedor": "Hotels.com",
+        "precio": 195
+      },
+      {
+        "proveedor": "Expedia",
+        "precio": 201
+      }
+    ],
+    "resenas": [
+      {
+        "autor": "Laura M.",
+        "fecha": "2026-09-12",
+        "puntuacion": 9.5,
+        "comentario": "Ubicación inmejorable y personal muy atento."
+      },
+      {
+        "autor": "Carlos R.",
+        "fecha": "2026-08-30",
+        "puntuacion": 8.8,
+        "comentario": "Habitación amplia, el desayuno es excelente."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Casa Nova Boutique",
+    "ciudad": "Barcelona",
+    "tipo": "Hotel",
+    "estrellas": 4,
+    "ubicacion": "Barrio Gótico, Barcelona — 0.4 km del centro",
+    "descripcion": "Boutique hotel con diseño contemporáneo en el corazón del Gótico, con terraza y habitaciones con servicio.",
+    "capacidad": 3,
+    "habitaciones": 1,
+    "camas": 2,
+    "banos": 1,
+    "precioNoche": 127,
+    "servicios": [
+      "WiFi",
+      "Terraza",
+      "Servicio habitaciones",
+      "Piscina",
+      "Parking gratis"
+    ],
+    "reglas": [
+      "Check-in desde las 14:00",
+      "Check-out hasta las 11:00",
+      "Silencio a partir de las 23:00"
+    ],
+    "calificacion": 8.7,
+    "totalResenas": 923,
+    "etiqueta": "Parking gratis",
+    "imagenes": [
+      "linear-gradient(135deg,#f97316,#ec4899 60%,#8b5cf6)",
+      "linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899)",
+      "linear-gradient(90deg,#10b981,#06b6d4,#facc15,#f97316,#ec4899)"
+    ],
+    "ofertas": [
+      {
+        "proveedor": "HotelVista",
+        "precio": 127,
+        "destacada": true
+      },
+      {
+        "proveedor": "Booking.com",
+        "precio": 134
+      },
+      {
+        "proveedor": "Agoda",
+        "precio": 139
+      }
+    ],
+    "resenas": [
+      {
+        "autor": "Ana P.",
+        "fecha": "2026-09-02",
+        "puntuacion": 9,
+        "comentario": "Muy encantador, volveré seguro."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Barcelona Urban Suites",
+    "ciudad": "Barcelona",
+    "tipo": "Apartamento",
+    "estrellas": 4,
+    "ubicacion": "Eixample, Barcelona — 1.1 km del centro",
+    "descripcion": "Apartamentos tipo suite con cocina equipada, perfectos para estancias largas o en familia.",
+    "capacidad": 5,
+    "habitaciones": 2,
+    "camas": 3,
+    "banos": 2,
+    "precioNoche": 98,
+    "servicios": [
+      "WiFi",
+      "Cocina equipada",
+      "Parking"
+    ],
+    "reglas": [
+      "Check-in autónomo",
+      "No se permiten fiestas",
+      "Fianza de 100 €"
+    ],
+    "calificacion": 8.4,
+    "totalResenas": 1205,
+    "etiqueta": "¡Últimas 3 habitaciones!",
+    "imagenes": [
+      "linear-gradient(135deg,#06b6d4,#3b82f6 60%,#6d28d9)",
+      "linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899)",
+      "linear-gradient(135deg,#f97316,#ec4899 60%,#8b5cf6)"
+    ],
+    "ofertas": [
+      {
+        "proveedor": "Hotels.com",
+        "precio": 98,
+        "destacada": true
+      },
+      {
+        "proveedor": "Expedia",
+        "precio": 102
+      },
+      {
+        "proveedor": "Booking.com",
+        "precio": 105
+      }
+    ],
+    "resenas": [
+      {
+        "autor": "Miguel T.",
+        "fecha": "2026-07-21",
+        "puntuacion": 8.4,
+        "comentario": "Cómodo y bien comunicado."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Hostal del Mar",
+    "ciudad": "Barcelona",
+    "tipo": "Hostal",
+    "estrellas": 3,
+    "ubicacion": "Barceloneta, Barcelona — 1.8 km del centro (junto a playa)",
+    "descripcion": "Hostal sencillo y luminoso a pasos de la playa, con aire acondicionado y desayuno incluido.",
+    "capacidad": 2,
+    "habitaciones": 1,
+    "camas": 1,
+    "banos": 1,
+    "precioNoche": 67,
+    "servicios": [
+      "WiFi",
+      "Aire acondicionado",
+      "Admite mascotas",
+      "Desayuno incluido"
+    ],
+    "reglas": [
+      "Check-in 13:00 - 22:00",
+      "Mascotas bienvenidas",
+      "Prohibido fumar"
+    ],
+    "calificacion": 7.9,
+    "totalResenas": 654,
+    "etiqueta": "Desayuno incluido",
+    "imagenes": [
+      "linear-gradient(90deg,#10b981,#06b6d4,#facc15,#f97316,#ec4899)",
+      "linear-gradient(135deg,#06b6d4,#3b82f6 60%,#6d28d9)",
+      "linear-gradient(135deg,#f97316,#ec4899 60%,#8b5cf6)"
+    ],
+    "ofertas": [
+      {
+        "proveedor": "Agoda",
+        "precio": 67,
+        "destacada": true
+      },
+      {
+        "proveedor": "HotelVista",
+        "precio": 72
+      },
+      {
+        "proveedor": "Booking.com",
+        "precio": 74
+      }
+    ],
+    "resenas": [
+      {
+        "autor": "Sofía L.",
+        "fecha": "2026-06-18",
+        "puntuacion": 7.9,
+        "comentario": "Relación calidad-precio muy buena."
+      }
+    ]
+  }
+]

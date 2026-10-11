@@ -1,0 +1,47 @@
+<<<<<<< HEAD
+/* Tema oscuro de HotelVista sobre Bootstrap 5.3 */
+:root,
+[data-bs-theme='dark'] {
+  --bs-body-bg: #0f0f14;
+  --bs-body-color: #f1f1f5;
+  --bs-secondary-color: #8a8a9a;
+  --bs-secondary-bg: #22222c;
+  --bs-tertiary-bg: #1a1a22;
+  --bs-border-color: #2c2c38;
+  --bs-primary: #8b5cf6;
+  --bs-primary-rgb: 139, 92, 246;
+  --bs-warning: #f97316;
+  --bs-warning-rgb: 249, 115, 22;
+  --bs-link-color-rgb: 139, 92, 246;
+}
+
+.btn-primary {
+  --bs-btn-bg: #8b5cf6;
+  --bs-btn-border-color: #8b5cf6;
+  --bs-btn-hover-bg: #7c4ae6;
+  --bs-btn-hover-border-color: #7c4ae6;
+  --bs-btn-active-bg: #6d3fd4;
+  --bs-btn-active-border-color: #6d3fd4;
+}
+
+.text-rosa {
+  color: #ec4899;
+}
+
+.badge.bg-warning {
+  color: #fff;
+}
+
+.form-check-input:checked {
+  background-color: #f97316;
+  border-color: #f97316;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate__animated {
+    animation: none !important;
+  }
+}
+=======
+/* You can add global styles to this file, and also import other style files */
+>>>>>>> e13e5d3ce5a208655d301fe4b7dc05eebfa9226f

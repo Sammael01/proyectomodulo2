@@ -1,0 +1,124 @@
+<div class="container py-4">
+  <div class="d-flex flex-column flex-lg-row gap-4">
+    <div class="filtros">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="h6 mb-0">Filtros</h3>
+        <button type="button" class="btn btn-link btn-sm p-0" (click)="limpiar()">Limpiar</button>
+      </div>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">Nombre</span>
+        <input type="text" class="form-control" [(ngModel)]="busqueda" />
+      </div>
+
+      <div class="mb-3">
+        <label for="precio" class="form-label">Precio máximo: €{{ precioMax }}</label>
+        <input type="range" class="form-range" min="45" max="320" id="precio" [(ngModel)]="precioMax" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Valoración mínima</label>
+        <div class="d-flex gap-2">
+          @for (n of [3, 4, 5]; track n) {
+            <button
+              type="button"
+              class="btn btn-sm"
+              [class.btn-primary]="minEstrellas === n"
+              [class.btn-outline-secondary]="minEstrellas !== n"
+              (click)="elegirEstrellas(n)"
+            >
+              {{ n }} <i class="fa-solid fa-star"></i>
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Tipo de alojamiento</label>
+        @for (t of tipos; track t) {
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [id]="'tipo' + $index" [(ngModel)]="tiposSel[t]" />
+            <label class="form-check-label" [attr.for]="'tipo' + $index">{{ t }}</label>
+          </div>
+        }
+      </div>
+
+      <div>
+        <label class="form-label">Servicios</label>
+        @for (s of servicios; track s) {
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              [id]="'servicio' + $index"
+              [(ngModel)]="serviciosSel[s]"
+            />
+            <label class="form-check-label" [attr.for]="'servicio' + $index">{{ s }}</label>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="flex-grow-1">
+      @if (estado() === 'cargando') {
+        <p class="text-center text-body-secondary py-5">Cargando alojamientos...</p>
+      } @else if (estado() === 'error') {
+        <p class="text-center text-danger py-5">No pudimos cargar los alojamientos.</p>
+      } @else {
+        @let lista = filtrar();
+        <h3 class="h6 mb-3">{{ lista.length }} alojamientos encontrados</h3>
+
+        @for (a of lista; track a.id) {
+          <div
+            class="border rounded bg-body-tertiary mb-3 overflow-hidden d-flex flex-column flex-md-row animate__animated animate__fadeInUp"
+            [style.animation-delay]="$index * 80 + 'ms'"
+          >
+            <div class="foto" [style.background]="fondo(a.imagenes[0])"></div>
+
+            <div class="p-3 flex-grow-1 d-flex flex-column gap-1">
+              <div class="d-flex justify-content-between gap-2">
+                <h3 class="h5 mb-0">{{ a.nombre }}</h3>
+                <span class="text-warning text-nowrap">
+                  @for (n of [1, 2, 3, 4, 5]; track n) {
+                    <i class="fa-star" [class.fa-solid]="n <= a.estrellas" [class.fa-regular]="n > a.estrellas"></i>
+                  }
+                </span>
+              </div>
+              <p class="small text-body-secondary mb-0">
+                <i class="fa-solid fa-location-dot"></i> {{ a.ubicacion }}
+              </p>
+              @if (a.etiqueta) {
+                <span class="badge text-bg-primary align-self-start fw-normal">{{ a.etiqueta }}</span>
+              }
+              <div class="mt-auto pt-2 d-flex justify-content-between align-items-end gap-2">
+                <small class="text-body-secondary">{{ a.servicios.slice(0, 4).join(' · ') }}</small>
+                <div class="text-end">
+                  <strong class="text-warning">{{ etiquetaCalificacion(a.calificacion) }}</strong>
+                  <span class="badge bg-warning ms-1">{{ a.calificacion }}</span>
+                  <small class="d-block text-body-secondary">{{ a.totalResenas }} opiniones</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="precios bg-body-secondary p-3 d-flex flex-column">
+              @for (o of a.ofertas; track o.proveedor) {
+                <div class="d-flex justify-content-between small">
+                  <span>{{ o.proveedor }}</span>
+                  <strong [class.text-rosa]="o.destacada">€{{ o.precio }}</strong>
+                </div>
+              }
+              <div class="mt-auto pt-3 text-end">
+                <small class="d-block text-body-secondary">Mejor precio</small>
+                <h3 class="mb-2">€{{ a.precioNoche }}<small class="fs-6 text-body-secondary">/noche</small></h3>
+                <a class="btn btn-primary w-100" [routerLink]="['/alojamiento', a.id]">Ver oferta</a>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <p class="text-center text-body-secondary py-5">No hay alojamientos con esos filtros.</p>
+        }
+      }
+    </div>
+  </div>
+</div>

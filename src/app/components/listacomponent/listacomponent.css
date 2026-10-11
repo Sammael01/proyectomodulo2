@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.filtros {
+  width: 100%;
+}
+
+.foto {
+  min-height: 150px;
+}
+
+@media (min-width: 768px) {
+  .foto {
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  .precios {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .filtros {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}

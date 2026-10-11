@@ -1,0 +1,113 @@
+<div class="container py-4 animate__animated animate__fadeIn">
+  <a routerLink="/" class="btn btn-link p-0 mb-3">
+    <i class="fa-solid fa-arrow-left"></i> Volver a los resultados
+  </a>
+
+  @if (estado() === 'cargando') {
+    <p class="text-center text-body-secondary py-5">Cargando alojamiento...</p>
+  } @else if (estado() === 'error') {
+    <p class="text-center text-danger py-5">No pudimos cargar el alojamiento.</p>
+  } @else {
+    @let a = alojamiento();
+    @if (a) {
+      <div class="principal rounded mb-2" [style.background]="fondo(a.imagenes[imagenActual])"></div>
+      <div class="d-flex gap-2 mb-4">
+        @for (img of a.imagenes; track $index) {
+          <button
+            type="button"
+            class="miniatura rounded border border-2"
+            [class.border-primary]="$index === imagenActual"
+            [style.background]="fondo(img)"
+            [attr.aria-label]="'Imagen ' + ($index + 1)"
+            (click)="imagenActual = $index"
+          ></button>
+        }
+      </div>
+
+      <div class="d-flex flex-column flex-lg-row gap-4">
+        <div class="flex-grow-1">
+          <span class="badge text-bg-primary fw-normal">{{ a.tipo }}</span>
+          <h1 class="h2 mt-2">{{ a.nombre }}</h1>
+          <span class="text-warning">
+            @for (n of [1, 2, 3, 4, 5]; track n) {
+              <i class="fa-star" [class.fa-solid]="n <= a.estrellas" [class.fa-regular]="n > a.estrellas"></i>
+            }
+          </span>
+          <p class="text-body-secondary mb-0">
+            <i class="fa-solid fa-location-dot"></i> {{ a.ubicacion }}
+          </p>
+          <p class="small text-body-secondary">{{ a.ciudad }}</p>
+
+          <h3 class="h5 mt-4">Descripción</h3>
+          <p class="text-body-secondary">{{ a.descripcion }}</p>
+
+          <div class="d-flex flex-wrap gap-2 my-4">
+            <span class="border rounded px-3 py-2">
+              <i class="fa-solid fa-users text-warning"></i> {{ a.capacidad }} huéspedes
+            </span>
+            <span class="border rounded px-3 py-2">
+              <i class="fa-solid fa-door-open text-warning"></i> {{ a.habitaciones }} habitaciones
+            </span>
+            <span class="border rounded px-3 py-2">
+              <i class="fa-solid fa-bed text-warning"></i> {{ a.camas }} camas
+            </span>
+            <span class="border rounded px-3 py-2">
+              <i class="fa-solid fa-bath text-warning"></i> {{ a.banos }} baños
+            </span>
+          </div>
+
+          <h3 class="h5">Servicios</h3>
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            @for (s of a.servicios; track s) {
+              <span class="badge border bg-body-secondary text-body fw-normal">{{ s }}</span>
+            }
+          </div>
+
+          <h3 class="h5">Reglas</h3>
+          <div class="mb-4">
+            @for (r of a.reglas; track r) {
+              <p class="text-body-secondary mb-1"><i class="fa-solid fa-circle-info text-warning"></i> {{ r }}</p>
+            }
+          </div>
+
+          <h3 class="h5">Reseñas ({{ a.totalResenas }})</h3>
+          @for (r of a.resenas; track r.autor + r.fecha) {
+            <div class="border rounded bg-body-tertiary p-3 mb-2">
+              <div class="d-flex justify-content-between">
+                <strong>{{ r.autor }}</strong>
+                <span class="badge bg-warning">{{ r.puntuacion }}</span>
+              </div>
+              <small class="text-body-secondary">{{ r.fecha | date: 'dd/MM/yyyy' }}</small>
+              <p class="mb-0 mt-2">{{ r.comentario }}</p>
+            </div>
+          } @empty {
+            <p class="text-body-secondary">Aún no hay reseñas.</p>
+          }
+        </div>
+
+        <div class="panel border rounded bg-body-tertiary p-3 align-self-start animate__animated animate__fadeInRight">
+          <div class="mb-3">
+            <span class="badge bg-warning fs-5">{{ a.calificacion }}</span>
+            <strong class="text-warning ms-2">{{ etiquetaCalificacion(a.calificacion) }}</strong>
+            <small class="d-block text-body-secondary">{{ a.totalResenas }} opiniones</small>
+          </div>
+          <small class="text-body-secondary">Precio por noche</small>
+          <h3 class="mb-3">€{{ a.precioNoche }}</h3>
+          @for (o of a.ofertas; track o.proveedor) {
+            <div class="d-flex justify-content-between small border-top py-2">
+              <span>{{ o.proveedor }}</span>
+              <strong [class.text-rosa]="o.destacada">€{{ o.precio }}</strong>
+            </div>
+          }
+          <button type="button" class="btn btn-success w-100 mt-3">
+            <i class="fa-solid fa-calendar-check"></i> Reservar ahora
+          </button>
+        </div>
+      </div>
+    } @else {
+      <p class="text-center text-body-secondary py-5">
+        No encontramos este alojamiento. <a routerLink="/">Volver al listado</a>
+      </p>
+    }
+  }
+</div>
