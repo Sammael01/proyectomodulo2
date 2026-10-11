@@ -8,7 +8,7 @@ export interface Reserva {
   huespedes: number;
   noches: number;
   total: number;
-  nombreHuesped: number;
+  nombreHuesped: string;
   correo: string;
   estado: 'CONFIRMADA';
 }
