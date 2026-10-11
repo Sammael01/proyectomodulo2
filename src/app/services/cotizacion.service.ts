@@ -6,7 +6,7 @@ const TASA_SERVICIO = 0.10; // 10 % del subtotal
 const MS_POR_DIA = 1000 * 60 * 60 * 24;
 
 @Injectable({ providedIn: 'root' })
-class CotizacionService {
+export class CotizacionService {
 
   private parsear(fecha: string): Date {
     const [y, m, d] = fecha.split('-').map(Number);
@@ -72,5 +72,3 @@ class CotizacionService {
     };
   }
 }
-
-export default CotizacionService

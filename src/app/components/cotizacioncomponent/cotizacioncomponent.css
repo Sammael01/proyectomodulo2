@@ -1,11 +1,150 @@
 :host {
   display: block;
+  --marino: rgb(43, 74, 88);
+  --laton: rgb(168, 90, 22);
+  --laton-oscuro: rgb(135, 71, 16);
+  --borde: rgb(220, 223, 221);
+  --texto-suave: rgb(91, 103, 109);
 }
 
-.max-w-md {
-  max-width: 480px;
+.ficha {
+  overflow: hidden;
+  background: rgb(255, 255, 255);
+  border: 1px solid var(--borde);
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgb(34, 43, 48);
 }
 
-.tracking-wide {
-  letter-spacing: 0.05em;
+/* Banda superior, como la de las fichas del prototipo */
+.ficha-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding: 1.1rem 1.5rem;
+  background: var(--marino);
+  color: rgb(214, 224, 229);
+}
+
+.ficha-encabezado h2 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: rgb(255, 255, 255);
+}
+
+.precio {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.precio strong {
+  font-size: 1.1rem;
+  color: rgb(255, 255, 255);
+}
+
+.ficha-cuerpo {
+  padding: 1.5rem;
+}
+
+.form-control:focus {
+  border-color: var(--marino);
+  box-shadow: 0 0 0 0.2rem rgb(43, 74, 88);
+}
+
+.boton-cobre {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--laton);
+  color: rgb(255, 255, 255);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.boton-cobre:hover {
+  background: var(--laton-oscuro);
+}
+
+.boton-cobre:focus-visible {
+  outline: 3px solid var(--marino);
+  outline-offset: 2px;
+}
+
+.resultado {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--borde);
+}
+
+.subtitulo {
+  margin: 0 0 0.5rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--marino);
+}
+
+.especificaciones {
+  margin: 0;
+}
+
+.fila-dato {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.fila-dato dt {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.fila-dato dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+}
+
+.fila-dato--total {
+  align-items: baseline;
+  padding-top: 1rem;
+  border-bottom: none;
+}
+
+.fila-dato--total dt {
+  font-weight: 700;
+  color: var(--marino);
+}
+
+.fila-dato--total dd {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--marino);
+}
+
+.ayuda {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.galeria img {
+  display: block;
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
 }
