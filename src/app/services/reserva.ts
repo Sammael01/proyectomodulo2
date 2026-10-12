@@ -1,6 +1,7 @@
-import {Injectable, signal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Reserva} from "../models/reserva";
 import {Alojamiento} from '../models/alojamiento';
+import {Cotizacion} from '../models/cotizacion';
 
 @Injectable({providedIn: 'root'})
 export class ReservaService {

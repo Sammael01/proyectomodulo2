@@ -1,0 +1,130 @@
+<section class="ficha" aria-labelledby="titulo-cotizacion">
+  <header class="ficha-encabezado">
+    <h2 id="titulo-cotizacion">Cotiza tu estancia</h2>
+    <p class="precio">
+      <strong>$ {{ alojamiento.precioNoche | number: '1.0-0' }}</strong> por noche
+    </p>
+  </header>
+
+  <div class="ficha-cuerpo">
+    <form (ngSubmit)="cotizar()" novalidate>
+      <div class="row g-3">
+        <div class="col-12 col-sm-6">
+          <label for="llegada" class="form-label">Fecha de llegada</label>
+          <input
+            id="llegada"
+            name="llegada"
+            type="date"
+            class="form-control"
+            [min]="hoy"
+            [(ngModel)]="fechaLlegada"
+            (ngModelChange)="invalidar()"
+          />
+        </div>
+
+        <div class="col-12 col-sm-6">
+          <label for="salida" class="form-label">Fecha de salida</label>
+          <input
+            id="salida"
+            name="salida"
+            type="date"
+            class="form-control"
+            [min]="fechaLlegada || hoy"
+            [(ngModel)]="fechaSalida"
+            (ngModelChange)="invalidar()"
+          />
+        </div>
+
+        <div class="col-12">
+          <label for="huespedes" class="form-label">
+            Huéspedes <span class="maximo">(máx. {{ alojamiento.capacidad }})</span>
+          </label>
+          <input
+            id="huespedes"
+            name="huespedes"
+            type="number"
+            min="1"
+            step="1"
+            class="form-control"
+            [max]="alojamiento.capacidad"
+            [(ngModel)]="huespedes"
+            (ngModelChange)="invalidar()"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="boton-principal w-100 mt-3">Calcular cotización</button>
+    </form>
+
+    <div class="resultado" aria-live="polite">
+      @if (errores.length > 0) {
+        <div class="alert alert-danger mb-0" role="alert">
+          <ul class="mb-0 ps-3">
+            @for (error of errores; track error) {
+              <li>{{ error }}</li>
+            }
+          </ul>
+        </div>
+      } @else if (cotizacion) {
+        <h3 class="subtitulo">Resumen de la cotización</h3>
+        <dl class="especificaciones">
+          <div class="fila-dato">
+            <dt>Estancia</dt>
+            <dd>
+              {{ cotizacion.fechaLlegada | date: 'dd/MM/yyyy' }} -
+              {{ cotizacion.fechaSalida | date: 'dd/MM/yyyy' }}
+            </dd>
+          </div>
+          <div class="fila-dato">
+            <dt>Noches</dt>
+            <dd>{{ cotizacion.noches }}</dd>
+          </div>
+          <div class="fila-dato">
+            <dt>
+              Subtotal ({{ cotizacion.noches }} × $ {{ cotizacion.precioNoche | number: '1.0-0' }})
+            </dt>
+            <dd>$ {{ cotizacion.subtotal | number: '1.0-0' }}</dd>
+          </div>
+          <div class="fila-dato">
+            <dt>Tarifa de limpieza</dt>
+            <dd>$ {{ cotizacion.tarifaLimpieza | number: '1.0-0' }}</dd>
+          </div>
+          <div class="fila-dato">
+            <dt>Tarifa de servicio (10 %)</dt>
+            <dd>$ {{ cotizacion.tarifaServicio | number: '1.0-0' }}</dd>
+          </div>
+          <div class="fila-dato fila-dato--total">
+            <dt>Total</dt>
+            <dd>$ {{ cotizacion.total | number: '1.0-0' }}</dd>
+          </div>
+        </dl>
+
+        @if (tasas) {
+          <div class="conversion">
+            <div class="d-flex align-items-center gap-2">
+              <label for="moneda" class="mb-0">Ver total en</label>
+              <select
+                id="moneda"
+                name="moneda"
+                class="form-select form-select-sm w-auto"
+                [(ngModel)]="moneda"
+              >
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+              </select>
+              <strong>≈ {{ convertir(cotizacion.total) | number: '1.2-2' }} {{ moneda }}</strong>
+            </div>
+            <p class="nota">
+              Valor de referencia: la reserva se hace en pesos colombianos.
+              <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener"
+                >Rates By Exchange Rate API</a
+              >
+            </p>
+          </div>
+        }
+      } @else {
+        <p class="ayuda">Elige tus fechas y huéspedes para ver el total antes de reservar.</p>
+      }
+    </div>
+  </div>
+</section>

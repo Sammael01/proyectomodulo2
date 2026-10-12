@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg barra">
+  <div class="container">
+    <a class="navbar-brand marca" routerLink="/"
+      ><span class="logo"></span><span>Hotel<span class="resalte">Vista</span></span></a
+    >
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#menuPrincipal"
+      aria-controls="menuPrincipal"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuPrincipal">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item">
+          <a
+            class="nav-link enlace"
+            routerLink="/"
+            routerLinkActive="activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Inicio</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link enlace" routerLink="/alojamientos" routerLinkActive="activo"
+            >Alojamientos</a
+          >
+        </li>
+        <li class="nav-item mt-2 mt-lg-0 ms-lg-3">
+          <a class="boton-reservas" routerLink="/mis-reservas" routerLinkActive="activo">
+            <i class="fa-regular fa-calendar-check me-2"></i>Mis reservas
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

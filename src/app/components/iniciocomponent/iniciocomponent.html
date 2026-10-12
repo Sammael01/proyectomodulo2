@@ -1,0 +1,86 @@
+<section class="portada">
+  <img
+    class="portada-foto"
+    src="assets/images/guatape.jpg"
+    alt="Cabaña con vista al embalse de Guatapé"
+  />
+  <div class="portada-capa"></div>
+
+  <div class="container portada-contenido animate__animated animate__fadeIn">
+    <h1 class="portada-titulo">HotelVista</h1>
+    <p class="portada-texto">
+      Explora los alojamientos de Inversiones LR en Colombia, conoce el total de tu estancia antes
+      de reservar y consulta tus reservas en un solo lugar.
+    </p>
+
+    <form class="buscador" (ngSubmit)="buscar()">
+      <div class="campo">
+        <label for="ciudad" class="form-label">¿A dónde quieres ir?</label>
+        <select id="ciudad" name="ciudad" class="form-select" [(ngModel)]="ciudad">
+          <option value="">Todas las ciudades</option>
+          @for (c of ciudades; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </div>
+      <button type="submit" class="boton-principal">
+        <i class="fa-solid fa-magnifying-glass me-2"></i>Buscar alojamientos
+      </button>
+    </form>
+  </div>
+</section>
+
+<section class="container seccion">
+  <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
+    <h2 class="titulo-seccion">Alojamientos destacados</h2>
+    <a routerLink="/alojamientos" class="enlace-ver">
+      Ver todos los alojamientos<i class="fa-solid fa-arrow-right ms-2"></i>
+    </a>
+  </div>
+
+  @if (cargando) {
+    <p class="mensaje">Cargando alojamientos...</p>
+  } @else if (error) {
+    <div class="alert alert-danger" role="alert">
+      No pudimos cargar los alojamientos. Intenta de nuevo más tarde.
+    </div>
+  } @else {
+    <div class="row g-4">
+      @for (a of destacados; track a.id) {
+        <div class="col-12 col-md-6 col-lg-4">
+          <app-tarjetacomponent [alojamiento]="a"></app-tarjetacomponent>
+        </div>
+      }
+    </div>
+  }
+</section>
+
+<section class="pasos">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="paso">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <h3>Busca</h3>
+          <p>Filtra por ciudad, número de huéspedes, tipo de alojamiento y precio máximo.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="paso">
+          <i class="fa-solid fa-calculator"></i>
+          <h3>Cotiza</h3>
+          <p>Elige tus fechas y conoce las noches, las tarifas y el total antes de reservar.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="paso">
+          <i class="fa-regular fa-calendar-check"></i>
+          <h3>Reserva</h3>
+          <p>
+            Confirma con tu nombre y correo, y consulta tu reserva cuando quieras en Mis reservas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

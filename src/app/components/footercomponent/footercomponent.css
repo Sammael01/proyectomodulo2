@@ -1,0 +1,91 @@
+:host {
+  display: block;
+}
+
+.pie {
+  padding-top: 3rem;
+  background: var(--superficie);
+  border-top: 1px solid var(--borde);
+  color: var(--texto-suave);
+}
+
+.llamado {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.lema {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--texto);
+}
+
+.boton-claro {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  background: var(--morado);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.boton-claro:hover {
+  background: var(--morado-oscuro);
+  color: #fff;
+}
+
+.columnas {
+  padding: 2.5rem 0;
+}
+
+.titulo-columna {
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--morado);
+}
+
+.lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--texto-medio);
+}
+
+.lista a {
+  color: var(--texto-medio);
+  text-decoration: none;
+}
+
+.lista a:hover {
+  color: var(--naranja);
+}
+
+.nota {
+  margin: 0;
+  padding: 1rem;
+  background: var(--campo);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.derechos {
+  margin: 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--borde);
+  font-size: 0.8rem;
+  text-align: center;
+}

@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+
+.resumen {
+  margin: 0 0 1.5rem;
+}
+
+.fila-dato {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.fila-dato dt {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.fila-dato dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.total {
+  color: var(--naranja);
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-medio);
+}

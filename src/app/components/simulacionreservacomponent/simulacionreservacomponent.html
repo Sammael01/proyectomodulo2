@@ -1,0 +1,61 @@
+<section class="ficha" aria-labelledby="titulo-reserva">
+  <header class="ficha-encabezado">
+    <h2 id="titulo-reserva">Reserva tu estancia</h2>
+  </header>
+
+  <div class="ficha-cuerpo">
+    <dl class="resumen">
+      <div class="fila-dato">
+        <dt>Alojamiento</dt>
+        <dd>{{ alojamiento.nombre }}</dd>
+      </div>
+      <div class="fila-dato">
+        <dt>Estancia</dt>
+        <dd>
+          {{ cotizacion.fechaLlegada | date: 'dd/MM/yyyy' }} -
+          {{ cotizacion.fechaSalida | date: 'dd/MM/yyyy' }}
+        </dd>
+      </div>
+      <div class="fila-dato">
+        <dt>Huéspedes</dt>
+        <dd>{{ cotizacion.huespedes }}</dd>
+      </div>
+      <div class="fila-dato">
+        <dt>Total a pagar</dt>
+        <dd class="total">$ {{ cotizacion.total | number: '1.0-0' }}</dd>
+      </div>
+    </dl>
+
+    <form (ngSubmit)="confirmarReserva()" novalidate>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre del huésped</label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          class="form-control"
+          placeholder="Ej. Ricardo Hernández"
+          [class.is-invalid]="errorNombre !== ''"
+          [(ngModel)]="nombre"
+        />
+        <div class="invalid-feedback">{{ errorNombre }}</div>
+      </div>
+
+      <div class="mb-4">
+        <label for="correo" class="form-label">Correo electrónico</label>
+        <input
+          id="correo"
+          name="correo"
+          type="email"
+          class="form-control"
+          placeholder="ejemplo@correo.com"
+          [class.is-invalid]="errorCorreo !== ''"
+          [(ngModel)]="correo"
+        />
+        <div class="invalid-feedback">{{ errorCorreo }}</div>
+      </div>
+
+      <button type="submit" class="boton-principal w-100">Confirmar reserva</button>
+    </form>
+  </div>
+</section>

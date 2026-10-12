@@ -1,0 +1,33 @@
+<article class="tarjeta">
+  <img class="foto" [src]="alojamiento.imagenPrincipal" [alt]="alojamiento.nombre" loading="lazy" />
+
+  <div class="cuerpo">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span class="tipo">{{ alojamiento.tipo }}</span>
+      <span class="calificacion">
+        <i class="fa-solid fa-star me-1"></i>{{ alojamiento.calificacion | number: '1.1-1' }}
+      </span>
+    </div>
+
+    <h3 class="nombre">{{ alojamiento.nombre }}</h3>
+    <p class="dato"><i class="fa-solid fa-location-dot me-2"></i>{{ alojamiento.ciudad }}</p>
+    <p class="dato">
+      <i class="fa-solid fa-users me-2"></i>Hasta {{ alojamiento.capacidad }} huéspedes
+    </p>
+
+    <ul class="servicios">
+      @for (servicio of alojamiento.servicios; track servicio) {
+        <li>{{ servicio }}</li>
+      }
+    </ul>
+
+    <div class="pie-tarjeta">
+      <p class="precio">
+        <strong>$ {{ alojamiento.precioNoche | number: '1.0-0' }}</strong> / noche
+      </p>
+      <a class="boton-principal boton-pequeno" [routerLink]="['/alojamientos', alojamiento.id]"
+        >Ver detalle</a
+      >
+    </div>
+  </div>
+</article>
