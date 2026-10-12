@@ -6,17 +6,32 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "LRMarketplace": {
+    "hotelvista": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
         "@schematics/angular:component": {
           "standalone": false
         },
         "@schematics/angular:directive": {
           "standalone": false
         },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
         "@schematics/angular:pipe": {
           "standalone": false
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -52,7 +67,12 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              }
             },
             "development": {
               "optimization": false,
@@ -66,10 +86,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "LRMarketplace:build:production"
+              "buildTarget": "hotelvista:build:production"
             },
             "development": {
-              "buildTarget": "LRMarketplace:build:development"
+              "buildTarget": "hotelvista:build:development"
             }
           },
           "defaultConfiguration": "development"
