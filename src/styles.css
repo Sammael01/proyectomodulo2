@@ -1,1 +1,133 @@
-/* You can add global styles to this file, and also import other style files */
+:root,
+[data-bs-theme='dark'] {
+  --fondo: #111118;
+  --superficie: #1c1c26;
+  --superficie-2: #22222e;
+  --campo: #101016;
+  --borde: #2c2c3a;
+  --texto: #f4f4f8;
+  --texto-suave: #9a9aad;
+  --texto-medio: #c9c9d6;
+  --morado: #8b5cf6;
+  --morado-oscuro: #7c4ef0;
+  --morado-claro: #a78bfa;
+  --naranja: #f97316;
+  --exito: #4ade80;
+
+  --bs-body-bg: #111118;
+  --bs-body-color: #f4f4f8;
+  --bs-secondary-color: #9a9aad;
+  --bs-secondary-bg: #22222e;
+  --bs-tertiary-bg: #1c1c26;
+  --bs-border-color: #2c2c3a;
+  --bs-primary: #8b5cf6;
+  --bs-primary-rgb: 139, 92, 246;
+  --bs-link-color-rgb: 167, 139, 250;
+  --bs-link-hover-color-rgb: 196, 181, 253;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--texto);
+  font-family:
+    'DM Sans',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+}
+
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: var(--campo);
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+.form-control::placeholder {
+  color: #6b6b7e;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--campo);
+  border-color: var(--morado);
+  color: var(--texto);
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+}
+
+.boton-principal {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--morado);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.boton-principal:hover {
+  background: var(--morado-oscuro);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.boton-principal:focus-visible {
+  outline: 3px solid var(--morado-claro);
+  outline-offset: 2px;
+}
+
+.boton-pequeno {
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.ficha {
+  overflow: hidden;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+}
+
+.ficha-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding: 1.1rem 1.5rem;
+  background: var(--superficie-2);
+  border-bottom: 1px solid var(--borde);
+  color: var(--texto-suave);
+}
+
+.ficha-encabezado h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.ficha-cuerpo {
+  padding: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate__animated {
+    animation: none !important;
+  }
+}
+

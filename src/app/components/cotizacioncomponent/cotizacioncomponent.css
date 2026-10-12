@@ -1,0 +1,98 @@
+:host {
+  display: block;
+}
+
+.precio {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.precio strong {
+  font-size: 1.1rem;
+  color: var(--texto);
+}
+
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-medio);
+}
+
+.maximo {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.resultado {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--borde);
+}
+
+.subtitulo {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.especificaciones {
+  margin: 0;
+}
+
+.fila-dato {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--borde);
+}
+
+.fila-dato dt {
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.fila-dato dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.fila-dato--total {
+  align-items: baseline;
+  padding-top: 1rem;
+  border-bottom: none;
+}
+
+.fila-dato--total dt {
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.fila-dato--total dd {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--texto);
+}
+
+.conversion {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 8px;
+  color: var(--texto);
+}
+
+.nota {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.ayuda {
+  margin: 0;
+  color: var(--texto-suave);
+}

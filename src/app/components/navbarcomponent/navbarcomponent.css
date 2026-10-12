@@ -1,0 +1,73 @@
+:host {
+  display: block;
+}
+
+.barra {
+  padding: 0.9rem 0;
+  background: var(--fondo);
+  border-bottom: 1px solid var(--borde);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.marca:hover {
+  color: var(--texto);
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--morado), var(--naranja));
+}
+
+.resalte {
+  color: var(--naranja);
+}
+
+.enlace {
+  width: fit-content;
+  padding: 0.4rem 1rem;
+  color: var(--texto-medio);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.enlace:hover,
+.enlace:focus,
+.enlace.activo {
+  color: var(--naranja);
+}
+
+.boton-reservas {
+  display: inline-block;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  background: var(--morado);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.boton-reservas:hover,
+.boton-reservas.activo {
+  background: var(--morado-oscuro);
+  color: #fff;
+}
+
+.navbar-toggler {
+  border-color: var(--borde);
+  color: var(--texto);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.25);
+}

@@ -1,0 +1,54 @@
+<footer class="pie">
+  <div class="container">
+    <div class="llamado">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <p class="lema">Encuentra tu próxima estancia y conoce el total antes de reservar.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a routerLink="/alojamientos" class="boton-claro">Explorar alojamientos</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 columnas">
+      <div class="col-6 col-md-3">
+        <h3 class="titulo-columna">Menú</h3>
+        <ul class="lista">
+          <li><a routerLink="/">Inicio</a></li>
+          <li><a routerLink="/alojamientos">Alojamientos</a></li>
+          <li><a routerLink="/mis-reservas">Mis reservas</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <h3 class="titulo-columna">Destinos</h3>
+        <ul class="lista">
+          @for (ciudad of ciudades; track ciudad) {
+            <li>{{ ciudad }}</li>
+          }
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <h3 class="titulo-columna">Integrantes</h3>
+        <ul class="lista">
+          <li>Samuel Parada</li>
+          <li>Samuel Contreras</li>
+          <li>Sebastian Hernandez</li>
+          <li>Santiago Mendoza</li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <p class="nota">
+          Primera versión de la plataforma de Inversiones LR: las reservas son simuladas y se
+          guardan solo en este navegador.
+        </p>
+      </div>
+    </div>
+
+    <p class="derechos">© 2026 HotelVista · Proyecto de curso, Universidad El Bosque</p>
+  </div>
+</footer>
+
