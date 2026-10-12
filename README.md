@@ -1,31 +1,27 @@
 # Marketplace de Alojamientos
 
-Aplicación web para explorar alojamientos temporales de Inversiones LR antes de reservarlos. El huésped puede buscar y filtrar alojamientos, ver el detalle de cada uno, cotizar una estancia y registrar una reserva simulada.
+HotelVista es el frontend del marketplace de alojamientos temporales de Inversiones LR. Permite revisar los alojamientos disponibles en varios destinos de Colombia, compararlos, cotizar una estancia con todas sus tarifas y dejar registrada una reserva simulada.
 
-Esta primera versión corresponde solo al frontend: no hay backend. El catálogo se lee desde un archivo JSON y las reservas se guardan en el navegador.
-
-Proyecto de curso desarrollado en la Universidad El Bosque.
+En esta versión no hay backend. El catálogo sale de un archivo JSON incluido en el proyecto y las reservas quedan guardadas en el navegador de quien las hace.
 
 ## Integrantes
 
 - Samuel Parada
 - Samuel Contreras
-- Sebastian Hernandez
-- Santiago
+- Sebastian Hernández
+- Santiago Mendoza
 
 ## Tecnologías
 
-- Angular 22
-- TypeScript
-- Bootstrap 5.3
-- Font Awesome 7
-- animate.css
-- ExchangeRate-API, para mostrar el total de la cotización en otras monedas
+- Angular 22 y TypeScript
+- Bootstrap 5.3, Font Awesome 7 y animate.css
+- ExchangeRate-API, para conversión de divisas
 
 ## Requisitos
 
-- Node.js 24.15 o superior, con npm.
+- Node.js 24 (desde la 24.15), con npm.
 - Git, para clonar el repositorio.
+- Conexión a internet: Bootstrap, Font Awesome, animate.css y la fuente DM Sans se cargan por CDN desde `src/index.html`, y la conversión de divisas consulta una API externa.
 
 ## Instalación
 
@@ -41,9 +37,7 @@ npm install
 npm start
 ```
 
-Luego se abre `http://localhost:4200` en el navegador.
-
-`npm start` ejecuta `ng serve` sin necesidad de tener el Angular CLI instalado de forma global.
+La aplicación queda disponible en `http://localhost:4200`. `npm start` usa el Angular CLI del proyecto, así que no hace falta tenerlo instalado de forma global.
 
 Para correr las pruebas unitarias:
 
@@ -51,31 +45,79 @@ Para correr las pruebas unitarias:
 npm test
 ```
 
+## Catálogo
+
+El archivo `public/assets/data/marketplace-data.json` contiene los alojamientos y sus reseñas. Trae seis alojamientos, en Bogotá, Cartagena, Guatapé, Villa de Leyva, Medellín y Armenia, entre apartamentos, casas y una cabaña.
+
+La casa campestre de Armenia está marcada como inactiva, así que no aparece en ninguna parte de la aplicación: ni en el inicio, ni en el listado, ni en los filtros, ni por su ruta de detalle. Pasa lo mismo con cualquier alojamiento cuyo precio por noche no sea mayor que cero.
+
 ## Funcionalidades
 
-- **Página inicial:** presentación de la plataforma, alojamientos destacados y acceso a la búsqueda.
-- **Listado de alojamientos:** muestra los alojamientos activos con su imagen, ciudad, tipo, capacidad, precio por noche, calificación y servicios.
-- **Búsqueda y filtros:** por ciudad, número de huéspedes, tipo de alojamiento y precio máximo, con opción para limpiar los filtros.
-- **Detalle del alojamiento:** descripción, ubicación, habitaciones, camas, baños, servicios, reglas, imágenes y reseñas.
-- **Cotización:** a partir de las fechas y el número de huéspedes calcula las noches, el subtotal, la tarifa de limpieza, la tarifa de servicio (10 % del subtotal) y el total. También muestra el total aproximado en dólares o euros, solo como referencia.
-- **Reserva:** después de una cotización válida, el huésped ingresa su nombre y correo y la reserva queda registrada como confirmada.
-- **Mis reservas:** lista las reservas realizadas desde el navegador, o un mensaje si todavía no hay ninguna.
+1. **Inicio (`/`):** muestra los tres alojamientos con mejor calificación y un buscador por ciudad. Al buscar, se pasa al listado con esa ciudad ya filtrada.
+2. **Listado (`/alojamientos`):** cada alojamiento aparece en una tarjeta con su imagen, tipo, calificación, ciudad, capacidad, servicios y precio por noche. Se puede filtrar por ciudad, número de huéspedes, tipo y precio máximo, y limpiar los filtros con un botón. Si ningún alojamiento cumple, se avisa en pantalla.
+3. **Detalle (`/alojamientos/:id`):** galería de imágenes, descripción, ubicación, habitaciones, camas, baños, servicios, reglas de la casa y reseñas de otros huéspedes. El formulario de cotización está en esta misma página.
+4. **Cotización:** se eligen las fechas y el número de huéspedes. Si algo no cumple las reglas, se muestran los errores y no se genera la cotización.
+5. **Reserva:** cuando hay una cotización válida aparece el formulario de nombre y correo. Al confirmar, la reserva se guarda y la aplicación lleva a Mis reservas. Si se cambia una fecha o el número de huéspedes, la cotización se descarta y hay que volver a cotizar antes de reservar.
+6. **Mis reservas (`/mis-reservas`):** tabla con las reservas hechas desde ese navegador. Si todavía no hay ninguna, se muestra un mensaje con un enlace al listado.
 
-## Datos y persistencia
+## Cotización
 
-- **Catálogo:** los alojamientos y las reseñas están en `public/assets/data/marketplace-data.json`. Es de solo lectura y se consulta siempre a través de un servicio, nunca directamente desde los componentes.
-- **Reservas:** se guardan en el `localStorage` del navegador. Se conservan al recargar la página, pero no se comparten entre navegadores ni equipos, y se pierden si se borran los datos del sitio.
+```
+noches             = días entre la llegada y la salida
+subtotal           = noches × precio por noche
+tarifa de servicio = 10 % del subtotal
+total              = subtotal + tarifa de limpieza + tarifa de servicio
+```
+
+Por ejemplo, tres noches en el Loft moderno en Chapinero, a $180.000 la noche y con $45.000 de limpieza, dan un subtotal de $540.000, una tarifa de servicio de $54.000 y un total de $639.000.
+
+Antes de calcular se valida que:
+
+- la fecha de llegada no sea anterior a hoy;
+- la fecha de salida sea posterior a la de llegada;
+- el número de huéspedes sea un entero mayor que cero y no supere la capacidad del alojamiento;
+- el alojamiento tenga un precio por noche mayor que cero.
+
+Debajo del total se puede ver el valor aproximado en dólares o euros. Las tasas se consultan en la API abierta de ExchangeRate-API (`https://open.er-api.com/v6/latest/COP`), que no pide clave. Ese valor es solo una referencia: la cotización y la reserva siempre quedan en pesos colombianos y, si la API no responde, la cotización funciona igual, solo que sin el equivalente.
+
+## Reservas
+
+Las reservas se guardan en el `localStorage` del navegador, bajo la clave `reservas`. Cada una lleva un número consecutivo, el alojamiento, la ciudad, las fechas, el número de huéspedes, las noches, el total, el nombre y el correo del huésped, y queda con estado confirmada.
+
+Como se guardan en el navegador, se conservan al recargar la página, pero no se ven desde otro navegador o equipo y se pierden si se borran los datos del sitio. Tampoco se revisa si dos reservas se cruzan en las mismas fechas, porque no hay un servidor que lleve la disponibilidad.
 
 ## Estructura del proyecto
 
 ```
-public/
-└── assets/
-    ├── data/        archivo JSON con alojamientos y reseñas
-    └── images/      imágenes de los alojamientos
+public/assets/
+├── data/           marketplace-data.json
+└── images/         fotos de los alojamientos
 src/
+├── index.html      carga de las librerías y la fuente
+├── styles.css      tema oscuro y estilos compartidos
 └── app/
-    ├── components/  vistas y partes de la interfaz
-    ├── models/      interfaces que describen los datos
-    └── services/    consulta del catálogo, cotización, manejo de reservas y divisas
+    ├── components/
+    ├── models/
+    └── services/
 ```
+
+| Componente | Qué hace |
+|---|---|
+| `navbarcomponent` | Barra de navegación |
+| `footercomponent` | Pie de página, con las ciudades del catálogo |
+| `iniciocomponent` | Página inicial |
+| `listacomponent` | Listado y filtros |
+| `tarjetacomponent` | Tarjeta de un alojamiento, usada en el inicio y en el listado |
+| `detallecomponent` | Detalle del alojamiento |
+| `cotizacioncomponent` | Formulario y resultado de la cotización, con la conversión de divisas |
+| `simulacionreservacomponent` | Formulario para confirmar la reserva |
+| `consultareservacomponent` | Mis reservas |
+
+| Servicio | Qué hace |
+|---|---|
+| `AlojamientoService` | Lee el JSON y entrega los alojamientos activos, los destacados, los resultados de los filtros, las ciudades, los tipos y las reseñas |
+| `CotizacionService` | Valida los datos de la cotización y calcula sus valores |
+| `ReservaService` | Guarda y consulta las reservas en el `localStorage` |
+| `DivisaService` | Consulta las tasas de cambio |
+
+Los componentes no hacen peticiones HTTP ni leen el JSON o el `localStorage` por su cuenta; todo pasa por los servicios.
