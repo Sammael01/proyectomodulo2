@@ -1,0 +1,57 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+  <header class="encabezado">
+    <h1 class="titulo">Mis reservas</h1>
+    @if (reservas.length === 1) {
+      <p class="conteo">1 reserva realizada</p>
+    } @else if (reservas.length > 1) {
+      <p class="conteo">{{ reservas.length }} reservas realizadas</p>
+    }
+  </header>
+
+  @if (reservas.length === 0) {
+    <div class="vacio" role="status">
+      <h2>Aún no tienes reservas</h2>
+      <p>Cuando confirmes una reserva, aparecerá aquí con todos sus datos.</p>
+      <a routerLink="/alojamientos" class="boton-principal">Explorar alojamientos</a>
+    </div>
+  } @else {
+    <div class="tarjeta-tabla">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <caption class="visually-hidden">
+            Listado de reservas realizadas
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Alojamiento</th>
+              <th scope="col">Ciudad</th>
+              <th scope="col">Llegada</th>
+              <th scope="col">Salida</th>
+              <th scope="col" class="text-center">Huéspedes</th>
+              <th scope="col" class="text-end">Total</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of reservas; track r.id) {
+              <tr>
+                <td>
+                  <span class="nombre">{{ r.alojamientoNombre }}</span>
+                  <span class="codigo">Reserva #{{ r.id }}</span>
+                </td>
+                <td>{{ r.ciudad }}</td>
+                <td>{{ r.fechaLlegada | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ r.fechaSalida | date: 'dd/MM/yyyy' }}</td>
+                <td class="text-center">{{ r.huespedes }}</td>
+                <td class="text-end total">$ {{ r.total | number: '1.0-0' }}</td>
+                <td>
+                  <span class="estado">{{ r.estado }}</span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>

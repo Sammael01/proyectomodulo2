@@ -13,10 +13,10 @@
           "skipTests": true
         },
         "@schematics/angular:component": {
-          "skipTests": true
+          "standalone": false
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+          "standalone": false
         },
         "@schematics/angular:guard": {
           "skipTests": true
@@ -25,7 +25,7 @@
           "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+          "standalone": false
         },
         "@schematics/angular:resolver": {
           "skipTests": true
@@ -93,6 +93,9 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
         }
       }
     }

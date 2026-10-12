@@ -1,0 +1,128 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+  <a routerLink="/alojamientos" class="volver"
+    ><i class="fa-solid fa-arrow-left me-2"></i>Volver al listado</a
+  >
+
+  @if (cargando) {
+    <p class="mensaje">Cargando alojamiento...</p>
+  } @else if (error) {
+    <div class="alert alert-danger" role="alert">
+      No pudimos cargar el alojamiento. Intenta de nuevo más tarde.
+    </div>
+  } @else if (alojamiento) {
+    <header>
+      <div class="d-flex flex-wrap gap-2">
+        <span class="tipo">{{ alojamiento.tipo }}</span>
+        <span class="tipo"><i class="fa-solid fa-city me-1"></i>{{ alojamiento.ciudad }}</span>
+      </div>
+      <h1 class="nombre">{{ alojamiento.nombre }}</h1>
+      <p class="ubicacion">
+        <i class="fa-solid fa-location-dot me-2"></i>{{ alojamiento.ubicacion }}
+        <span class="calificacion ms-3">
+          <i class="fa-solid fa-star me-1"></i>{{ alojamiento.calificacion | number: '1.1-1' }}
+        </span>
+      </p>
+    </header>
+
+    <div class="galeria">
+      <img
+        class="principal"
+        [src]="alojamiento.imagenes[imagenActual]"
+        [alt]="alojamiento.nombre"
+      />
+      @if (alojamiento.imagenes.length > 1) {
+        <div class="miniaturas">
+          @for (imagen of alojamiento.imagenes; track imagen; let i = $index) {
+            <button
+              type="button"
+              class="miniatura"
+              [class.activa]="i === imagenActual"
+              (click)="imagenActual = i"
+              [attr.aria-label]="'Ver imagen ' + (i + 1)"
+            >
+              <img [src]="imagen" alt="" loading="lazy" />
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="row g-4 mt-2">
+      <div class="col-12 col-lg-7">
+        <section class="bloque">
+          <h2>Descripción</h2>
+          <p>{{ alojamiento.descripcion }}</p>
+        </section>
+
+        <section class="bloque">
+          <h2>Características</h2>
+          <ul class="caracteristicas">
+            <li><i class="fa-solid fa-users"></i>Capacidad: {{ alojamiento.capacidad }}</li>
+            <li>
+              <i class="fa-solid fa-door-open"></i>Habitaciones: {{ alojamiento.habitaciones }}
+            </li>
+            <li><i class="fa-solid fa-bed"></i>Camas: {{ alojamiento.camas }}</li>
+            <li><i class="fa-solid fa-bath"></i>Baños: {{ alojamiento.banos }}</li>
+          </ul>
+        </section>
+
+        <section class="bloque">
+          <h2>Servicios</h2>
+          <ul class="etiquetas">
+            @for (servicio of alojamiento.servicios; track servicio) {
+              <li>{{ servicio }}</li>
+            }
+          </ul>
+        </section>
+
+        <section class="bloque">
+          <h2>Reglas</h2>
+          <ul class="reglas">
+            @for (regla of alojamiento.reglas; track regla) {
+              <li><i class="fa-solid fa-circle-info"></i>{{ regla }}</li>
+            }
+          </ul>
+        </section>
+
+        <section class="bloque">
+          <h2>Reseñas</h2>
+          @for (resena of resenas; track resena.id) {
+            <article class="resena">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <strong>{{ resena.usuario }}</strong>
+                <span class="calificacion"
+                  ><i class="fa-solid fa-star me-1"></i>{{ resena.calificacion }}</span
+                >
+              </div>
+              <p>{{ resena.comentario }}</p>
+            </article>
+          } @empty {
+            <p class="mensaje">Este alojamiento aún no tiene reseñas.</p>
+          }
+        </section>
+      </div>
+
+      <div class="col-12 col-lg-5">
+        <div class="panel">
+          <app-cotizacioncomponent
+            [alojamiento]="alojamiento"
+            (cotizacionCalculada)="recibirCotizacion($event)"
+          ></app-cotizacioncomponent>
+          @if (cotizacion) {
+            <app-simulacionreservacomponent
+              class="d-block mt-4"
+              [alojamiento]="alojamiento"
+              [cotizacion]="cotizacion"
+            ></app-simulacionreservacomponent>
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="vacio" role="status">
+      <h2>No encontramos este alojamiento</h2>
+      <p>Puede que no exista o que ya no esté disponible.</p>
+      <a routerLink="/alojamientos" class="boton-principal">Ver alojamientos</a>
+    </div>
+  }
+</div>

@@ -1,0 +1,121 @@
+<div class="container py-5 animate__animated animate__fadeIn">
+  <header class="mb-4">
+    <h1 class="titulo">Alojamientos</h1>
+    <p class="subtitulo">
+      Filtra por ciudad, número de huéspedes, tipo y precio. Los resultados se actualizan al
+      instante.
+    </p>
+  </header>
+
+  <div class="row g-4">
+    <aside class="col-12 col-lg-3">
+      <div class="panel-filtros">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="titulo-panel">Filtros</h2>
+          <button type="button" class="boton-texto" (click)="limpiarFiltros()">
+            Limpiar filtros
+          </button>
+        </div>
+
+        <div class="mb-3">
+          <label for="filtro-ciudad" class="form-label">Ciudad</label>
+          <select
+            id="filtro-ciudad"
+            class="form-select"
+            [(ngModel)]="filtros.ciudad"
+            (ngModelChange)="aplicarFiltros()"
+          >
+            <option value="">Todas</option>
+            @for (c of ciudades; track c) {
+              <option [value]="c">{{ c }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="filtro-huespedes" class="form-label">Número de huéspedes</label>
+          <input
+            id="filtro-huespedes"
+            type="number"
+            min="1"
+            step="1"
+            class="form-control"
+            placeholder="Cualquiera"
+            [(ngModel)]="filtros.huespedes"
+            (ngModelChange)="aplicarFiltros()"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="filtro-tipo" class="form-label">Tipo de alojamiento</label>
+          <select
+            id="filtro-tipo"
+            class="form-select"
+            [(ngModel)]="filtros.tipo"
+            (ngModelChange)="aplicarFiltros()"
+          >
+            <option value="">Todos</option>
+            @for (t of tipos; track t) {
+              <option [value]="t">{{ t }}</option>
+            }
+          </select>
+        </div>
+
+        <div>
+          <label for="filtro-precio" class="form-label">Precio máximo por noche</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input
+              id="filtro-precio"
+              type="number"
+              min="0"
+              step="10000"
+              class="form-control"
+              placeholder="Sin límite"
+              [(ngModel)]="filtros.precioMax"
+              (ngModelChange)="aplicarFiltros()"
+            />
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="col-12 col-lg-9">
+      @if (cargando) {
+        <p class="mensaje">Cargando alojamientos...</p>
+      } @else if (error) {
+        <div class="alert alert-danger" role="alert">
+          No pudimos cargar los alojamientos. Intenta de nuevo más tarde.
+        </div>
+      } @else {
+        <p class="conteo">
+          @if (alojamientos.length === 1) {
+            1 alojamiento encontrado
+          } @else {
+            {{ alojamientos.length }} alojamientos encontrados
+          }
+        </p>
+
+        <div class="row g-4">
+          @for (a of alojamientos; track a.id) {
+            <div class="col-12 col-md-6">
+              <app-tarjetacomponent [alojamiento]="a"></app-tarjetacomponent>
+            </div>
+          } @empty {
+            <div class="col-12">
+              <div class="vacio" role="status">
+                <h2>No encontramos alojamientos</h2>
+                <p>
+                  Ningún alojamiento cumple con los filtros seleccionados. Prueba con otros valores.
+                </p>
+                <button type="button" class="boton-principal" (click)="limpiarFiltros()">
+                  Limpiar filtros
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </section>
+  </div>
+</div>
