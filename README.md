@@ -4,8 +4,6 @@ HotelVista es el frontend del marketplace de alojamientos temporales de Inversio
 
 En esta versión no hay backend. El catálogo sale de un archivo JSON incluido en el proyecto y las reservas quedan guardadas en el navegador de quien las hace.
 
-Proyecto de curso de la Universidad El Bosque.
-
 ## Integrantes
 
 - Samuel Parada
@@ -13,20 +11,39 @@ Proyecto de curso de la Universidad El Bosque.
 - Sebastian Hernández
 - Santiago Mendoza
 
-## Puesta en marcha
+## Tecnologías
 
-Se necesita Node.js 24.15 o superior, con npm, y Git.
+- Angular 22 y TypeScript
+- Bootstrap 5.3, Font Awesome 7 y animate.css
+- ExchangeRate-API, para conversión de divisas
+
+## Requisitos
+
+- Node.js 24 (desde la 24.15), con npm.
+- Git, para clonar el repositorio.
+- Conexión a internet: Bootstrap, Font Awesome, animate.css y la fuente DM Sans se cargan por CDN desde `src/index.html`, y la conversión de divisas consulta una API externa.
+
+## Instalación
 
 ```bash
 git clone https://github.com/Sammael01/proyectomodulo2.git
 cd proyectomodulo2
 npm install
+```
+
+## Ejecución
+
+```bash
 npm start
 ```
 
-La aplicación queda disponible en `http://localhost:4200`. `npm start` usa el Angular CLI del proyecto, así que no hace falta tenerlo instalado de forma global. Las pruebas unitarias se corren con `npm test`.
+La aplicación queda disponible en `http://localhost:4200`. `npm start` usa el Angular CLI del proyecto, así que no hace falta tenerlo instalado de forma global.
 
-Bootstrap, Font Awesome, animate.css y la fuente DM Sans se cargan por CDN desde `src/index.html`. Por eso la página necesita conexión a internet para verse bien, igual que la conversión de divisas.
+Para correr las pruebas unitarias:
+
+```bash
+npm test
+```
 
 ## Catálogo
 
@@ -34,7 +51,7 @@ El archivo `public/assets/data/marketplace-data.json` contiene los alojamientos 
 
 La casa campestre de Armenia está marcada como inactiva, así que no aparece en ninguna parte de la aplicación: ni en el inicio, ni en el listado, ni en los filtros, ni por su ruta de detalle. Pasa lo mismo con cualquier alojamiento cuyo precio por noche no sea mayor que cero.
 
-## Recorrido
+## Funcionalidades
 
 1. **Inicio (`/`):** muestra los tres alojamientos con mejor calificación y un buscador por ciudad. Al buscar, se pasa al listado con esa ciudad ya filtrada.
 2. **Listado (`/alojamientos`):** cada alojamiento aparece en una tarjeta con su imagen, tipo, calificación, ciudad, capacidad, servicios y precio por noche. Se puede filtrar por ciudad, número de huéspedes, tipo y precio máximo, y limpiar los filtros con un botón. Si ningún alojamiento cumple, se avisa en pantalla.
@@ -69,7 +86,7 @@ Las reservas se guardan en el `localStorage` del navegador, bajo la clave `reser
 
 Como se guardan en el navegador, se conservan al recargar la página, pero no se ven desde otro navegador o equipo y se pierden si se borran los datos del sitio. Tampoco se revisa si dos reservas se cruzan en las mismas fechas, porque no hay un servidor que lleve la disponibilidad.
 
-## Organización del código
+## Estructura del proyecto
 
 ```
 public/assets/
@@ -104,4 +121,3 @@ src/
 | `DivisaService` | Consulta las tasas de cambio |
 
 Los componentes no hacen peticiones HTTP ni leen el JSON o el `localStorage` por su cuenta; todo pasa por los servicios.
-
