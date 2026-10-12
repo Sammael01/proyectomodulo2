@@ -6,10 +6,9 @@
 /out-tsc
 /bazel-out
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Node modules and dependency files
+/node_modules/
+/yarn.lock
 
 # IDEs and editors
 .idea/
